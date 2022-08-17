@@ -23,6 +23,18 @@ public class HomeController : Controller
         return View();
     }
 
+    public async Task<IActionResult> DoSomething()
+    {
+        string flightTest = "JBU97";
+        string dateTest = "2022-08-17";
+
+        //var flightprop = new FlightProperties();
+        var api = new Api_Get();
+        var flightTask = api.GetFlight();
+        var flight = await flightTask;
+        return View(flight);
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

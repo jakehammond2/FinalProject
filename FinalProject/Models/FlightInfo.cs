@@ -1,11 +1,17 @@
-﻿using System;
-namespace FinalProject.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FinalProject_FlightTracker.Models
 {
     public class FlightInfo
     {
-        public FlightInfo()
-        {
-        }
+        [Required]
+        [DataType(DataType.Text)]
+
+        public string FlightNumber { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        public string Date { get; set; }
+
     }
 }
-

@@ -23,14 +23,11 @@ public class HomeController : Controller
         return View();
     }
 
-    public async Task<IActionResult> DoSomething()
+    public async Task<IActionResult> DoSomething(string flightNum, string date)
     {
-        string flightTest = "JBU97";
-        string dateTest = "2022-08-17";
-
         //var flightprop = new FlightProperties();
         var api = new Api_Get();
-        var flightTask = api.GetFlight();
+        var flightTask = api.GetFlight(flightNum, date);
         var flight = await flightTask;
         return View(flight);
     }

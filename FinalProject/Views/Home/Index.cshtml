@@ -8,7 +8,17 @@
     <a class="btn btn-warning" asp-action="DoSomething" asp-controller="Home">
         View your flight information
     </a>
-    
-    
+
+    @using (Html.BeginForm("DoSomething", "Home", "Post"))
+    {
+        <label class="control-label">Flight Number:</label>
+        <input type="text" name="flightNum" class="form-control" required />
+
+        <label class="control-label">Date:</label>
+        <input type="text" name="date" class="form-control" required />
+
+        <input type="submit" value="Submit" class="btn btn-primary" />
+    }
+
 </div>
 

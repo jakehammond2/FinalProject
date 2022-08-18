@@ -31,13 +31,13 @@ public class Api_Get
     //    }
     //}
 
-    public async Task<FlightProperties> GetFlight()
+    public async Task<FlightProperties> GetFlight(string flightNum, string date)
     {
         var client = new HttpClient();
         var request = new HttpRequestMessage
         {
             Method = HttpMethod.Get,
-            RequestUri = new Uri($"https://aerodatabox.p.rapidapi.com/flights/number/JBU97/2022-08-17"),
+            RequestUri = new Uri($"https://aerodatabox.p.rapidapi.com/flights/number/{flightNum}/{date}"),
             Headers =
     {
         { "X-RapidAPI-Key", "fa96296f46mshcae55558b128d47p1b35d1jsn2a266e359194" },

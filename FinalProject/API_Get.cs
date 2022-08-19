@@ -55,24 +55,40 @@ public class Api_Get
             string airlineName = "";
             string flightDistance = "";
             string status = "";
+            string departureAirport = "";
+            string arrivalAirport = "";
+            string flightNumber = "";
+            string arrivalAirportIATA = "";
+            string departureAirportIATA = "";
 
             foreach(var type in json)
             {
                 departureTime = type["departure"]["scheduledTimeLocal"].ToString();
+                departureAirport = type["departure"]["airport"]["name"].ToString();
                 airlineName = type["airline"]["name"].ToString();
                 flightDistance = type["greatCircleDistance"]["mile"].ToString();
                 status = type["status"].ToString();
-                //arrivalTime = type["arrival"]["scheduledTimeLocal"].ToString();
+                arrivalTime = type["arrival"]["scheduledTimeLocal"].ToString();
+                arrivalAirport = type["arrival"]["airport"]["name"].ToString();
+                flightNumber = type["number"].ToString();
+                arrivalAirportIATA = type["arrival"]["airport"]["iata"].ToString();
+                departureAirportIATA = type["departure"]["airport"]["iata"].ToString();
+                
 
             }
             var singleFlight = new FlightProperties()
             {
                 AirlineName = airlineName,
                 DepartureTime = departureTime,
+                DepartureAirport = departureAirport,
                 FlightDistance = flightDistance,
-                Status = status
-                //ArrivalTime = arrivalTime,
-                //FlightNumber = (string?)json[0]["number"],
+                Status = status,
+                ArrivalTime = arrivalTime,
+                ArrivalAirport = arrivalAirport,
+                FlightNumber = flightNumber,
+                DepartureAirportIATA = departureAirportIATA,
+                ArrivalAirportIATA = arrivalAirportIATA,
+                
             };
             return singleFlight;
 

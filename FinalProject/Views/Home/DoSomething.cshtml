@@ -1,11 +1,40 @@
 ﻿@model FlightProperties
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
+        string parsedStatus = "";
+        switch(Model.Status)
+        {
+            case "EnRoute":
+            parsedStatus = "Your flight is in route.";
+            break;
+
+            case "Uknown":
+            parsedStatus = "Your flight is not in route";
+            break;
+
+            default:
+            parsedStatus = "Information not available";
+            break;
+        }
+
 }
-<h1>@Model.AirlineName</h1>
-<h1>@Model.DepartureTime</h1>
-<h1>@Model.FlightDistance</h1>
-<h1>@Model.Status</h1>
+<!--If you want to add css to each view page, copy paste this code, change css name-->
+@section css{
+    <link href="~/css/dosomething.css" rel="stylesheet" />
+ }
+
+<body id="doSomethingPage">
+<div class="container" id="mainContainer">
+    <h3>Flight number: @Model.FlightNumber</h3>
+    <h3>@Model.DepartureAirportIATA > @Model.ArrivalAirportIATA</h3>
+    <p>@Model.AirlineName</p>
+    <p>@Model.DepartureTime</p>
+    <p>@Model.FlightDistance</p>
+    <p>@parsedStatus</p>
+    <p>@Model.ArrivalAirport</p>
+    <p>@Model.ArrivalTime</p>
+    <p>@Model.DepartureAirport</p>
+
+</div>
+</body>
+
 

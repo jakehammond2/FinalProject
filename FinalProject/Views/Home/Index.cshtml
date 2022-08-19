@@ -1,24 +1,37 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to our Flight Tracker</h1>
+@section css{
+    <link href="~/css/Home.css" rel="stylesheet" />
+}
 
-    <a class="btn btn-warning" asp-action="DoSomething" asp-controller="Home">
-        View your flight information
-    </a>
+<div class="container col-md-8 mx-auto" id="mainContainer">
+    <div class="text-center" id="title">
+        <h1 class="display-4">Welcome to our Flight Tracker</h1>
 
-    @using (Html.BeginForm("DoSomething", "Home", "Post"))
-    {
-        <label class="control-label">Flight Number:</label>
-        <input type="text" name="flightNum" class="form-control" required />
+        @*<a class="btn btn-warning" asp-action="DoSomething" asp-controller="Home">
+                View your flight information
+            </a>*@
+    </div>
+    <div class="container" id="form">
+        @using (Html.BeginForm("DoSomething", "Home", "Post"))
+        {
+           <div class= "container" id="flightnumber">
+            <label class="control-label">Flight Number:</label>
+            <input type="text" name="flightNum" class="form-control" id="flightnumberBox" required />
+           </div>
 
-        <label class="control-label">Date:</label>
-        <input type="text" name="date" class="form-control" required />
+           <div class="container" id="date">
+               <label class="control-label">Date:</label>
+               <input type="text" name="date" class="form-control" id="dateBox" required />
+           </div>
 
-        <input type="submit" value="Submit" class="btn btn-primary" />
-    }
-
+           <div class="submit mx-auto">
+            <input type="submit" value="View your flight information" class="btn btn-warning" id="submitBox" />
+           </div>
+        }   
+    </div>
 </div>
 

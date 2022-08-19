@@ -19,9 +19,16 @@ namespace FinalProject.Models
 
         public string FlightDistance { get; set; }
 
-        public string FlightTime { get; set; }
-
         public string Status { get; set; }
+
+        public string DepartureAirport { get; set; }
+
+        public string ArrivalAirport { get; set; }
+
+        public string ArrivalAirportIATA { get; set; }
+
+        public string DepartureAirportIATA { get; set; }
+
 
     }
 }

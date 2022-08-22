@@ -1,37 +1,14 @@
-﻿using FinalProject.Models;
+﻿using System;
+using System.Globalization;
+using FinalProject.Models;
 using Newtonsoft.Json.Linq;
+using static System.Net.Mime.MediaTypeNames;
+using static System.TimeSpan;
 
 public class Api_Get
 
 {
-    //public async void getAPIAsync()
-    //{
-    //    Console.WriteLine("Please enter in your specific flight number.");
-    //    var flightNumber = Console.ReadLine();
-
-    //    Console.WriteLine("Please enter in your flight date in YYYY-MM-DD.");
-    //    var date = Console.ReadLine();
-
-    //var client = new HttpClient();
-    //var request = new HttpRequestMessage
-    //{
-    //    Method = HttpMethod.Get,
-    //    RequestUri = new Uri($"https://aerodatabox.p.rapidapi.com/flights/%7BsearchBy%7D/{flightNumber}/{date}"),
-    //    Headers =
-    //{
-    //    { "X-RapidAPI-Key", "fa96296f46mshcae55558b128d47p1b35d1jsn2a266e359194" },
-    //    { "X-RapidAPI-Host", "aerodatabox.p.rapidapi.com" },
-    //},
-    //};
-    //    using (var response = await client.SendAsync(request))
-    //    {
-    //        response.EnsureSuccessStatusCode();
-    //        var body = await response.Content.ReadAsStringAsync();
-    //        Console.WriteLine(body);
-    //    }
-    //}
-
-    public async Task<FlightProperties> GetFlight(string flightNum, string date)
+    public async Task<FlightProperties> GetFlight(string flightNum, string date, string userDepartureCity)
     {
         var client = new HttpClient();
         var request = new HttpRequestMessage
@@ -39,11 +16,12 @@ public class Api_Get
             Method = HttpMethod.Get,
             RequestUri = new Uri($"https://aerodatabox.p.rapidapi.com/flights/number/{flightNum}/{date}"),
             Headers =
-    {
-        { "X-RapidAPI-Key", "fa96296f46mshcae55558b128d47p1b35d1jsn2a266e359194" },
-        { "X-RapidAPI-Host", "aerodatabox.p.rapidapi.com" },
-    },
+                {
+                    { "X-RapidAPI-Key", "fa96296f46mshcae55558b128d47p1b35d1jsn2a266e359194" },
+                    { "X-RapidAPI-Host", "aerodatabox.p.rapidapi.com" },
+                },
         };
+
         using (var response = await client.SendAsync(request))
         {
             response.EnsureSuccessStatusCode();
@@ -60,40 +38,45 @@ public class Api_Get
             string flightNumber = "";
             string arrivalAirportIATA = "";
             string departureAirportIATA = "";
+            string departureCityName = "";
+            FlightProperties singleFlight = null; 
 
-            foreach(var type in json)
+            foreach (var type in json)
             {
-                departureTime = type["departure"]["scheduledTimeLocal"].ToString();
+
+                //Console.WriteLine(type);
+                departureTime = type["departure"]["scheduledTimeLocal"].ToString().Split(' ').Last().Split('-').First();
+                arrivalTime = type["arrival"]["scheduledTimeLocal"].ToString().Split(' ').Last().Split('-').First();
                 departureAirport = type["departure"]["airport"]["name"].ToString();
                 airlineName = type["airline"]["name"].ToString();
                 flightDistance = type["greatCircleDistance"]["mile"].ToString();
                 status = type["status"].ToString();
-                arrivalTime = type["arrival"]["scheduledTimeLocal"].ToString();
                 arrivalAirport = type["arrival"]["airport"]["name"].ToString();
                 flightNumber = type["number"].ToString();
                 arrivalAirportIATA = type["arrival"]["airport"]["iata"].ToString();
                 departureAirportIATA = type["departure"]["airport"]["iata"].ToString();
-                
+                departureCityName = type["departure"]["airport"]["municipalityName"].ToString();
+
+                if (departureCityName == userDepartureCity)
+                {
+                    singleFlight = new FlightProperties()
+                    {
+                        AirlineName = airlineName,
+                        DepartureTime = departureTime,
+                        DepartureAirport = departureAirport,
+                        FlightDistance = flightDistance,
+                        Status = status,
+                        ArrivalTime = arrivalTime,
+                        ArrivalAirport = arrivalAirport,
+                        FlightNumber = flightNumber,
+                        DepartureAirportIATA = departureAirportIATA,
+                        ArrivalAirportIATA = arrivalAirportIATA,
+                    };
+                  
+                }
 
             }
-            var singleFlight = new FlightProperties()
-            {
-                AirlineName = airlineName,
-                DepartureTime = departureTime,
-                DepartureAirport = departureAirport,
-                FlightDistance = flightDistance,
-                Status = status,
-                ArrivalTime = arrivalTime,
-                ArrivalAirport = arrivalAirport,
-                FlightNumber = flightNumber,
-                DepartureAirportIATA = departureAirportIATA,
-                ArrivalAirportIATA = arrivalAirportIATA,
-                
-            };
             return singleFlight;
-
         }
-        
-
     }
 } 

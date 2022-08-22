@@ -23,13 +23,13 @@ public class HomeController : Controller
         return View();
     }
 
-    public async Task<IActionResult> DoSomething(string flightNum, string date)
+    public async Task<IActionResult> DoSomething(string flightNum, string date, string userDepartureCity)
     {
         //var flightprop = new FlightProperties();
         var api = new Api_Get();
-        var flightTask = api.GetFlight(flightNum, date);
-        var flight = await flightTask;
-        return View(flight);
+        var flights = await api.GetFlight(flightNum, date, userDepartureCity);
+        //var flights = await flightTask;
+        return View(flights);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

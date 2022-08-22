@@ -18,20 +18,25 @@
     <div class="container" id="form">
         @using (Html.BeginForm("DoSomething", "Home", "Post"))
         {
-           <div class= "container" id="flightnumber">
-            <label class="control-label">Flight Number:</label>
-            <input type="text" name="flightNum" class="form-control" id="flightnumberBox" required />
-           </div>
+            <div class="container" id="flightnumber">
+                <label class="control-label">Flight Number:</label>
+                <input type="text" name="flightNum" class="form-control" id="flightnumberBox" required />
+            </div>
 
-           <div class="container" id="date">
-               <label class="control-label">Date:</label>
-               <input type="text" name="date" class="form-control" id="dateBox" required />
-           </div>
+            <div class="container" id="userDepartureCity">
+                <label class="control-label">Departure City:</label>
+                <input type="text" name="userDepartureCity" class="form-control" id="flightnumberBox" required />
+            </div>
 
-           <div class="submit mx-auto">
-            <input type="submit" value="View your flight information" class="btn btn-warning" id="submitBox" />
-           </div>
-        }   
+            <div class="container" id="date">
+                <label class="control-label">Date:</label>
+                <input type="text" name="date" class="form-control" id="dateBox" required />
+            </div>
+
+            <div class="submit mx-auto">
+                <input type="submit" value="View your flight information" class="btn btn-warning" id="submitBox" />
+            </div>
+        }
     </div>
 </div>
 

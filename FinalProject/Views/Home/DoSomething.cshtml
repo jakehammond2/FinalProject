@@ -1,40 +1,73 @@
 ﻿@model FlightProperties
 @{
-        string parsedStatus = "";
-        switch(Model.Status)
-        {
-            case "EnRoute":
-            parsedStatus = "Your flight is in route.";
+    string parsedStatus = "";
+    switch(Model.Status)
+    {
+        case "EnRoute":
+            parsedStatus = "Flight Status: Your flight is in route.";
             break;
 
-            case "Uknown":
-            parsedStatus = "Your flight is not in route";
+        case "Uknown":
+            parsedStatus = "Flight Status: Your flight is not in route";
             break;
 
-            default:
-            parsedStatus = "Information not available";
+        default:
+            parsedStatus = "Flight Status: Information not available";
             break;
-        }
+    }
 
 }
+
+
 <!--If you want to add css to each view page, copy paste this code, change css name-->
 @section css{
     <link href="~/css/dosomething.css" rel="stylesheet" />
  }
 
 <body id="doSomethingPage">
-<div class="container" id="mainContainer">
-    <h3>Flight number: @Model.FlightNumber</h3>
-    <h3>@Model.DepartureAirportIATA > @Model.ArrivalAirportIATA</h3>
-    <p>@Model.AirlineName</p>
-    <p>@Model.DepartureTime</p>
-    <p>@Model.FlightDistance</p>
-    <p>@parsedStatus</p>
-    <p>@Model.ArrivalAirport</p>
-    <p>@Model.ArrivalTime</p>
-    <p>@Model.DepartureAirport</p>
+    <div class="container" id="mainContainer">
 
-</div>
+        <h3>Flight number: @Model.FlightNumber @Model.DepartureAirportIATA > @Model.ArrivalAirportIATA</h3>
+
+        <p>Airline Name: @Model.AirlineName</p>
+        <p>Flight Distance: @Model.FlightDistance miles</p>
+
+
+        <div class ="row">
+
+            <div class="departure-column-1">
+                <p>Departure Time: @Model.DepartureTime</p>
+                <p>Departure Airport: @Model.DepartureAirport</p>
+            </div>
+
+            <div id="arrival-column-2">
+                <p>Arrival Time: @Model.ArrivalTime</p>
+                <p>Arrival Airport: @Model.ArrivalAirport</p>
+            </div>
+
+        </div>
+
+
+        <p>@parsedStatus</p>
+
+    </div>
 </body>
+
+
+                @*<p1>@Model.DepartureAirport</p1>
+                <p2>@Model.ArrivalAirport</p2>*@
+
+
+
+@*<script type="text/javascrpt">
+    var myarray = new Array();
+
+    @foreach (var d in Model)
+     {
+        Console.log(d)
+     }
+    alert(myarray);
+</script>*@
+
 
 

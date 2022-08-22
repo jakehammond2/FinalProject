@@ -29,6 +29,8 @@ namespace FinalProject.Models
 
         public string DepartureAirportIATA { get; set; }
 
+        public string DepartureCityName { get; set; }
+
 
     }
 }

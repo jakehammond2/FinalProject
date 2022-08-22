@@ -7,7 +7,7 @@
             parsedStatus = "Flight Status: Your flight is in route.";
             break;
 
-        case "Uknown":
+        case "Unknown":
             parsedStatus = "Flight Status: Your flight is not in route";
             break;
 
@@ -32,7 +32,6 @@
         <p>Airline Name: @Model.AirlineName</p>
         <p>Flight Distance: @Model.FlightDistance miles</p>
 
-
         <div class ="row">
 
             <div class="departure-column-1">
@@ -50,12 +49,11 @@
 
         <p>@parsedStatus</p>
 
+        <p>When you land, expect for @Model.ArrivalWeather.WeatherDescription. The current temperature is @Model.ArrivalWeather.WeatherTempK .
+           Expect winds up to @Model.ArrivalWeather.WeatherWindSpeed mph and a humidity level of @Model.ArrivalWeather.WeatherHumidity. </p>
+
     </div>
 </body>
-
-
-                @*<p1>@Model.DepartureAirport</p1>
-                <p2>@Model.ArrivalAirport</p2>*@
 
 
 

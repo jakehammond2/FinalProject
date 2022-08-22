@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Reflection.Emit;
 using FinalProject.Models;
 using Newtonsoft.Json.Linq;
 using static System.Net.Mime.MediaTypeNames;
@@ -39,11 +40,13 @@ public class Api_Get
             string arrivalAirportIATA = "";
             string departureAirportIATA = "";
             string departureCityName = "";
-            FlightProperties singleFlight = null; 
+            string arrivalLat = "";
+            string arrivalLong = "";
+            FlightProperties singleFlight = null;
+
 
             foreach (var type in json)
             {
-
                 //Console.WriteLine(type);
                 departureTime = type["departure"]["scheduledTimeLocal"].ToString().Split(' ').Last().Split('-').First();
                 arrivalTime = type["arrival"]["scheduledTimeLocal"].ToString().Split(' ').Last().Split('-').First();
@@ -56,6 +59,9 @@ public class Api_Get
                 arrivalAirportIATA = type["arrival"]["airport"]["iata"].ToString();
                 departureAirportIATA = type["departure"]["airport"]["iata"].ToString();
                 departureCityName = type["departure"]["airport"]["municipalityName"].ToString();
+                arrivalLat = type["arrival"]["airport"]["location"]["lat"].ToString();
+                arrivalLong = type["arrival"]["airport"]["location"]["lon"].ToString();
+
 
                 if (departureCityName == userDepartureCity)
                 {
@@ -71,12 +77,39 @@ public class Api_Get
                         FlightNumber = flightNumber,
                         DepartureAirportIATA = departureAirportIATA,
                         ArrivalAirportIATA = arrivalAirportIATA,
+                        ArrivalWeather = GetWeather(arrivalLat, arrivalLong)
                     };
-                  
                 }
-
             }
             return singleFlight;
         }
+
     }
-} 
+
+    public WeatherProperties GetWeather(string arrivalLat, string arrivalLong)
+    {
+
+        var client = new HttpClient();
+
+        var apiResponse = File.ReadAllText("appsettings.json");
+
+        var apiKey = JObject.Parse(apiResponse).GetValue("weatherKey");
+
+        string weatherURL = $"https://api.openweathermap.org/data/2.5/weather?lat={arrivalLat}&lon={arrivalLong}&appid={apiKey}&units=imperial";
+
+        var weatherJsonResponse = client.GetStringAsync(weatherURL).Result;    //Connects to Internet
+
+        var weatherObject = JObject.Parse(weatherJsonResponse);
+
+        Console.WriteLine(weatherObject["main"]["temp"].ToString());
+
+        return new WeatherProperties()
+        {
+            WeatherDescription = weatherObject["weather"][0]["description"].ToString(),
+            WeatherTempK = weatherObject["main"]["temp"].ToString(),
+            WeatherHumidity = weatherObject["main"]["humidity"].ToString(),
+            WeatherWindSpeed = weatherObject["wind"]["speed"].ToString(),
+        };
+    }
+}
+

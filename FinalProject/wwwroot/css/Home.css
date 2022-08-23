@@ -9,35 +9,32 @@
     border-style: solid;
     border-color: black;
     box-shadow: 5px 5px 50px grey;
-
 }
 
 body {
-
-
 }
 
 #flightnumber {
     text-align: center;
     margin-bottom: 20px;
 }
+
 #flightnumberBox {
-    margin:0 auto;
-    width: 350px;
-}
-#date {
-    text-align: center;
-    margin-bottom: 20px;
-}
-#dateBox {
     margin: 0 auto;
     width: 350px;
 }
 
-.display-4 {
-
+/*#calendar {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
+#calendarBox {
+    margin: 0 auto;
+    width: 350px;
+}*/
+
+
 .submit {
-    text-align: center; 
+    text-align: center;
 }

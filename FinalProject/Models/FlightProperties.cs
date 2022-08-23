@@ -35,6 +35,8 @@ namespace FinalProject.Models
 
         public string ArrivalLong { get; set; }
 
+        public string userDepartureCity { get; set; }
+
         public WeatherProperties ArrivalWeather { get; set; }
 
     }

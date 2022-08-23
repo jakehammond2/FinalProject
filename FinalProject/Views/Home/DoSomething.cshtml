@@ -1,7 +1,7 @@
 ﻿@model FlightProperties
 @{
     string parsedStatus = "";
-    switch(Model.Status)
+    switch (Model.Status)
     {
         case "EnRoute":
             parsedStatus = "Flight Status: Your flight is in route.";
@@ -21,51 +21,74 @@
 
 <!--If you want to add css to each view page, copy paste this code, change css name-->
 @section css{
-    <link href="~/css/dosomething.css" rel="stylesheet" />
- }
-
-<body id="doSomethingPage">
-    <div class="container" id="mainContainer">
-
-        <h3>Flight number: @Model.FlightNumber @Model.DepartureAirportIATA > @Model.ArrivalAirportIATA</h3>
-
-        <p>Airline Name: @Model.AirlineName</p>
-        <p>Flight Distance: @Model.FlightDistance miles</p>
-
-        <div class ="row">
-
-            <div class="departure-column-1">
-                <p>Departure Time: @Model.DepartureTime</p>
-                <p>Departure Airport: @Model.DepartureAirport</p>
-            </div>
-
-            <div id="arrival-column-2">
-                <p>Arrival Time: @Model.ArrivalTime</p>
-                <p>Arrival Airport: @Model.ArrivalAirport</p>
-            </div>
-
-        </div>
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+}
 
 
-        <p>@parsedStatus</p>
 
-        <p>When you land, expect for @Model.ArrivalWeather.WeatherDescription. The current temperature is @Model.ArrivalWeather.WeatherTempK .
-           Expect winds up to @Model.ArrivalWeather.WeatherWindSpeed mph and a humidity level of @Model.ArrivalWeather.WeatherHumidity. </p>
+<div style="padding-top: 20px" class="card mb-3" id="testShow">
 
+    <h3 class="card-header">Flight number: @Model.FlightNumber @Model.DepartureAirportIATA > @Model.ArrivalAirportIATA</h3>
+    <div class="card-body">
+        <h5 class="card-title">Airline Name: @Model.AirlineName</h5>
+        <h6 class="card-subtitle text-muted">Flight Distance: @Model.FlightDistance miles</h6>
     </div>
-</body>
+
+    <div class="card-footer text-muted">
+        Departure Information:
+    </div>
+    <div class="card-body">
+        <p class="card-text">Departure Time: @Model.DepartureTime</p>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Departure Airport: @Model.DepartureAirport</p>
+    </div>
+
+
+    <div class="card-footer text-muted">
+        Arrival Information:
+    </div>
+    <div class="card-body">
+        <p class="card-text">Arrival Time: @Model.ArrivalTime</p>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Arrival Airport: @Model.ArrivalAirport</p>
+    </div>
+
+
+    <div class="card-footer text-muted">
+        Flight Status:
+    </div>
+    <div class="card-body">
+        <p class="card-text">@parsedStatus</p>
+    </div>
+
+
+    <div class="card-footer text-muted">
+        Weather Information:
+    </div>
+    <div class="card-body">
+        <p class="card-text">
+            When you land, expect for @Model.ArrivalWeather.WeatherDescription. The current temperature is @Model.ArrivalWeather.WeatherTempK .
+            Expect winds up to @Model.ArrivalWeather.WeatherWindSpeed mph and a humidity level of @Model.ArrivalWeather.WeatherHumidity%.
+        </p>
+    </div>
+
+</div>
+
+
 
 
 
 @*<script type="text/javascrpt">
-    var myarray = new Array();
+        var myarray = new Array();
 
-    @foreach (var d in Model)
-     {
-        Console.log(d)
-     }
-    alert(myarray);
-</script>*@
+        @foreach (var d in Model)
+         {
+            Console.log(d)
+         }
+        alert(myarray);
+    </script>*@
 
 
 

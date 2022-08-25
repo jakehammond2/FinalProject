@@ -9,13 +9,13 @@ using static System.TimeSpan;
 public class Api_Get
 {
 
-    public async Task<FlightProperties> GetFlight(string flightNum, string date, string userDepartureCity)
+    public async Task<FlightProperties> GetFlight(FlightProperties flight)
     {
         var client = new HttpClient();
         var request = new HttpRequestMessage
         {
             Method = HttpMethod.Get,
-            RequestUri = new Uri($"https://aerodatabox.p.rapidapi.com/flights/number/{flightNum}/{date}"),
+            RequestUri = new Uri($"https://aerodatabox.p.rapidapi.com/flights/number/{flight.FlightNumber}/{flight.Date}"),
             Headers =
                 {
                     { "X-RapidAPI-Key", "fa96296f46mshcae55558b128d47p1b35d1jsn2a266e359194" },
@@ -64,7 +64,7 @@ public class Api_Get
                 arrivalLong = type["arrival"]["airport"]["location"]["lon"].ToString();
 
 
-                if (departureCityName == userDepartureCity)
+                if (departureCityName == flight.userDepartureCity)
                 {
                     singleFlight = new FlightProperties()
                     {
@@ -98,7 +98,7 @@ public class Api_Get
 
         string weatherURL = $"https://api.openweathermap.org/data/2.5/weather?lat={arrivalLat}&lon={arrivalLong}&appid={apiKey}&units=imperial";
 
-        var weatherJsonResponse = client.GetStringAsync(weatherURL).Result;    //Connects to Internet
+        var weatherJsonResponse = client.GetStringAsync(weatherURL).Result;    
 
         var weatherObject = JObject.Parse(weatherJsonResponse);
 

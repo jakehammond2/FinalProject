@@ -13,8 +13,12 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(string isNull)
     {
+        if (isNull == "yes")
+        {
+            ViewBag.Error = "Invalid Flight Information";
+        }
         return View();
     }
 
@@ -29,10 +33,17 @@ public class HomeController : Controller
     {
         //var flightprop = new FlightProperties();
         var api = new Api_Get();
-        var flights = await api.GetFlight(flight.FlightNumber, flight.Date, flight.userDepartureCity);
+        var flights = await api.GetFlight(flight);
         //var flights = await flightTask;
+        if (flights == null)
+        {
+            string _ = "yes";
+            return RedirectToAction("Index",new {isNull = _});
+        }
         return View(flights);
     }
+
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

@@ -7,8 +7,8 @@ using static System.Net.Mime.MediaTypeNames;
 using static System.TimeSpan;
 
 public class Api_Get
-
 {
+
     public async Task<FlightProperties> GetFlight(string flightNum, string date, string userDepartureCity)
     {
         var client = new HttpClient();
@@ -22,6 +22,7 @@ public class Api_Get
                     { "X-RapidAPI-Host", "aerodatabox.p.rapidapi.com" },
                 },
         };
+
 
         using (var response = await client.SendAsync(request))
         {

@@ -17,9 +17,19 @@
   <ItemGroup>
     <Content Remove="wwwroot\css\bootstrap.min.css" />
     <Content Remove="wwwroot\css\bootstrap %281%29.css" />
+    <Content Remove="wwwroot\Images\image.png" />
+    <Content Remove="wwwroot\Images\" />
+    <Content Remove="wwwroot\Images\plane.jpeg" />
+    <Content Remove="wwwroot\Images\image2.jpeg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\css\bootstrap.min.css" />
     <None Include="wwwroot\css\bootstrap %281%29.css" />
+    <None Include="wwwroot\Images\image.png" />
+    <None Include="wwwroot\Images\plane.jpeg" />
+    <None Include="wwwroot\Images\image2.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 </Project>
